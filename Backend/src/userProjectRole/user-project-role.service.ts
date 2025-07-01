@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserProjectRole } from './user-project-role.entity';
@@ -25,7 +29,9 @@ export class UserProjectRoleService {
 
   async assignRole(dto: AssignRoleDto): Promise<UserProjectRole> {
     const user = await this.userRepository.findOneBy({ id: dto.userId });
-    const project = await this.projectRepository.findOneBy({ id: dto.projectId });
+    const project = await this.projectRepository.findOneBy({
+      id: dto.projectId,
+    });
     const role = await this.roleRepository.findOneBy({ value: dto.roleValue });
 
     if (!user || !project || !role) {
@@ -34,6 +40,7 @@ export class UserProjectRoleService {
 
     const existing = await this.uprRepository.findOne({
       where: { user: { id: user.id }, project: { id: project.id } },
+      relations: ['role'],
     });
 
     if (existing) {
@@ -41,7 +48,6 @@ export class UserProjectRoleService {
       existing.role = role;
       return this.uprRepository.save(existing);
     }
-
     const newLink = this.uprRepository.create({ user, project, role });
     return this.uprRepository.save(newLink);
   }

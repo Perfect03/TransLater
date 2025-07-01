@@ -10,6 +10,9 @@ import { Role } from './roles/roles.entity';
 import { UserProjectRole } from './userProjectRole/user-project-role.entity';
 import { UserProjectRoleModule } from './userProjectRole/user-project-role.module';
 import { AuthModule } from './auth/auth.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   controllers: [],
@@ -17,6 +20,9 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static')
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -32,7 +38,8 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     RolesModule,
     UserProjectRoleModule,
-    AuthModule
+    AuthModule,
+    FilesModule
   ],
 })
 export class AppModule {}

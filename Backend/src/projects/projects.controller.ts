@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Project } from './projects.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Проекты')
 @Controller('projects')
@@ -15,8 +16,9 @@ export class ProjectsController {
     @ApiOperation({summary: 'Добавление проекта в список'})
     @ApiResponse({status: 200, type: Project})
     @Post()
-    create(@Body() projectDto: CreateProjectDto) {
-        return this.projectService.createProject(projectDto)
+    @UseInterceptors(FileInterceptor('logo'))
+    create(@Body() projectDto: CreateProjectDto, @UploadedFile() logo) {
+        return this.projectService.createProject(projectDto, logo)
     }
 
     @ApiOperation({summary: 'Получение всех проектов'})

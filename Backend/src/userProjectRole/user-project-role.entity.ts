@@ -2,8 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Project } from 'src/projects/projects.entity';
 import { Role } from 'src/roles/roles.entity';
 import { User } from 'src/users/users.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, Unique } from 'typeorm';
 
+@Unique(['user', 'project'])
 @Entity({ name: 'user-project-role' })
 export class UserProjectRole {
   @PrimaryGeneratedColumn()
