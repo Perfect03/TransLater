@@ -2,6 +2,9 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { Layout, LayoutSider, LayoutContent } from 'ant-design-vue'
 import Sidebar from '@/components/Sidebar.vue'
+
+
+
 </script>
 
 <template>

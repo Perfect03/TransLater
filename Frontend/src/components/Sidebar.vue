@@ -17,6 +17,8 @@ const levels = ['white', 'blue', 'yellow', 'orange']
 const selectedKeys = ref<string[]>(['1'])
 const openKeys = ref<string[]>(['sub1'])
 
+const collapsed = ref(true)
+
 function getItem(
   label: VueElement | string,
   key: string,
@@ -80,6 +82,7 @@ watch(openKeys, (val) => {
     @click="handleClick"
     class="el-menu"
     default-active="2"
+    :inline-collapsed="collapsed"
     @open="handleOpen"
     @close="handleClose"
   >
