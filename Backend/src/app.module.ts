@@ -18,9 +18,6 @@ import * as path from 'path';
   controllers: [],
   providers: [],
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: `.${process.env.NODE_ENV}.env`
-    }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static')
     }),
@@ -32,7 +29,7 @@ import * as path from 'path';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       entities: [Project, User, Role, UserProjectRole],
-      synchronize: true,
+      synchronize: false,
     }),
     ProjectsModule,
     UsersModule,
