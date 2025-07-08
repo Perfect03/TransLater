@@ -12,23 +12,22 @@ services:
       - /app/node_modules
     ports:
       - 5000:5000
-      - 7000:7000
-    command: pnpm start
-    depends on:
+    command: npm start
+    depends_on:
       - postgres
     restart: always
 
   postgres:
     container_name: postgres
     image: postgres:17
-    .env_file:
+    env_file:
       - .prod.env
     environment:
       PG_DATA: /var/lib/postgresql/data
     ports:
       - 5432:5432
     volumes:
-      - pgdata: /var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     restart: always
 
 volumes:

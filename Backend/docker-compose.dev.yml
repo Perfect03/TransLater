@@ -12,8 +12,7 @@ services:
       - /app/node_modules
     ports:
       - 5000:5000
-      - 6999:6999
-    command: pnpm start:dev
+    command: npm start:dev
     depends on:
       - postgres
     restart: always
