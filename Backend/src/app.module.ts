@@ -18,6 +18,9 @@ import * as path from 'path';
   controllers: [],
   providers: [],
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.${process.env.NODE_ENV || 'dev'}.env`
+    }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static')
     }),

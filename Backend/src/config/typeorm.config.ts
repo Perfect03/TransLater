@@ -7,7 +7,7 @@ import { Role } from 'src/roles/roles.entity';
 import { UserProjectRole } from 'src/userProjectRole/user-project-role.entity';
 
 config({
-  path: `.${process.env.NODE_ENV || 'development'}.env`,
+  path: `.${process.env.NODE_ENV || 'dev'}.env`,
 });
 
 const configService = new ConfigService()
