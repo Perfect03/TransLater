@@ -16,15 +16,17 @@ const i18n = createI18n({
   messages: {
     en: {
       login: {
-        h2: 'Вход в TransLater',
+        h2: 'Login to TransLater',
         form: {
           email: {
             label: ''
           }
         },
-        submit: 'Войти'
+        submit: 'Sign in'
       },
-
+      projects: {
+        h2: 'Select a project'
+      }
     },
     ru: {
       login: {
@@ -36,7 +38,9 @@ const i18n = createI18n({
         },
         submit: 'Войти'
       },
-      
+      projects: {
+        h2: 'Выберите проект'
+      }
     }
   }
 })

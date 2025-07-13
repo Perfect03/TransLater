@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import axios from 'axios'
 import { useAPI } from '@/composables/useAPI'
 import { useRouter } from 'vue-router'
 
