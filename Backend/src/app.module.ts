@@ -22,7 +22,8 @@ import * as path from 'path';
       envFilePath: `.${process.env.NODE_ENV || 'dev'}.env`
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, 'static')
+      rootPath: path.resolve(__dirname, 'static'),
+      serveRoot: '/static'
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
