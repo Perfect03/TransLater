@@ -6,6 +6,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
       path: '/',
       name: 'home',
       component: HomeView,
@@ -23,8 +28,8 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore()
-  
-  if (to.meta.requiresAuth && !auth.token) {
+
+  if (to.path != '/login' && !auth.token) {
     next('/login')
   } else {
     next()

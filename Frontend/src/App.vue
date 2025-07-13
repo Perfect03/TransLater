@@ -2,21 +2,25 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { Layout, LayoutSider, LayoutContent } from 'ant-design-vue'
 import Sidebar from '@/components/Sidebar.vue'
+import { useAuthStore } from '@/stores/auth'
 
-
+const auth = useAuthStore()
 
 </script>
 
 <template>
-  <Layout>
+  <Layout v-if="auth.token">
     <LayoutSider width="260px" class="side">
       <div class="logo">
         <img src="/src/assets/logo.svg" style="width: 100%" />
       </div>
       <Sidebar />
     </LayoutSider>
-    <LayoutContent>Main</LayoutContent>
+    <LayoutContent>
+      <RouterView />
+    </LayoutContent>
   </Layout>
+  <RouterView v-else />
 </template>
 
 <style scoped>

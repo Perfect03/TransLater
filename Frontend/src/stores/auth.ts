@@ -1,19 +1,24 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
+import { useAPI } from '@/composables/useAPI'
+import { useRouter } from 'vue-router'
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('token') || '')
 
   async function login(email: string, password: string) {
-    const res = await axios.post('/api/login', { email, password })
-    token.value = res.data.token
-    localStorage.setItem('token', token.value)
+    try {
+      const res = await useAPI().post<{token: string}>('/api/login', { email, password })
+      token.value = res?.token
+      localStorage.setItem('token', token.value)
+    } catch (e: unknown) { return e }
   }
 
   function logout() {
     token.value = ''
     localStorage.removeItem('token')
+    useRouter().push('/login')
   }
 
   return { token, login, logout }
