@@ -9,7 +9,11 @@ export const useProjectsStore = defineStore('projects', () => {
     return get<IProject[]>('/projects')
   }
 
-  return { loading, getAll }
+  const getProject = async (slug: string) => {
+    return get<IProject[]>(`/project/${slug}`)
+  }
+
+  return { loading, getAll, getProject }
 })
 
 export interface IProject {
@@ -17,4 +21,5 @@ export interface IProject {
   name: string
   description?: string
   logo?: string
+  slug: string
 }

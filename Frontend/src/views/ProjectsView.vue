@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useProjectsStore } from '@/stores/projects'
+import { useProjectsStore, type IProject } from '@/stores/projects'
 
 const { loading, getAll } = useProjectsStore()
-const projects = await getAll()
+const projects = ref([] as IProject[])
 const router = useRouter()
 
-function selectProject(id: number|string) {
-  router.push(`/projects/${id}`)
+onMounted(async () => {
+  projects.value = await getAll()
+})
+
+function selectProject(slug: number|string) {
+  router.push(`/projects/${slug}`)
 }
 </script>
 
@@ -25,7 +29,7 @@ function selectProject(id: number|string) {
       <!-- Grid -->
       <div v-else class="project-grid">
         <a-card v-for="project in projects" :key="project.id" hoverable class="project-tile"
-          @click="selectProject(project.id)">
+          @click="selectProject(project.slug)">
           <template #cover>
             <img :src="project.logo" class="project-logo" />
           </template>

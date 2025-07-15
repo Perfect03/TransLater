@@ -29,10 +29,14 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       proxy: {
-        '/api/': {
+        '/api': {
           target: env.API, // адрес твоего бэкенда
           changeOrigin: true,
-          rewrite: path => path.replace('/api', '')
+          rewrite: path => path.replace(/^\/api/, '')
+        },
+        '/static': {
+          target: env.API,
+          changeOrigin: true,
         }
       }
     }

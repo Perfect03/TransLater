@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { useProjectsStore } from '@/stores/projects'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useProjectsStore, type IProject } from '@/stores/projects'
+
+const { loading, getProject } = useProjectsStore()
+
+function handleBreadcrumbNav(newPath: string[]) {
+  //currentPath.value = newPath
+}
 
 </script>
 
 <template>
-  project
+  <Breadcrumbs :path="[useRoute().path]" @navigate="handleBreadcrumbNav" />
 </template>
 
 <style lang="scss" scoped>

@@ -2,14 +2,14 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { Layout, LayoutSider, LayoutContent } from 'ant-design-vue'
 import Sidebar from '@/components/Sidebar.vue'
-import { useAuthStore } from '@/stores/auth'
-
-const auth = useAuthStore()
+import LangSwitcher from '@/components/LangSwitcher.vue'
+import { useRoute } from 'vue-router'
 
 </script>
 
 <template>
-  <Layout v-if="auth.token">
+  <RouterView v-if="['/login', '/projects'].includes(useRoute().path)" />
+  <Layout v-else>
     <LayoutSider width="260px" class="side">
       <div class="logo">
         <img src="/src/assets/logo.svg" style="width: 100%" />
@@ -20,7 +20,7 @@ const auth = useAuthStore()
       <RouterView />
     </LayoutContent>
   </Layout>
-  <RouterView v-else />
+  <LangSwitcher />
 </template>
 
 <style scoped>

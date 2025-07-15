@@ -12,6 +12,10 @@ export class Project {
   @Column({ unique: true })
   name: string;
 
+  @ApiProperty({ example: 'my-project', description: 'Slug проекта' })
+  @Column({ unique: true })
+  slug: string;
+
   @ApiProperty({
     example: 'very good project',
     description: 'Описание проекта',
